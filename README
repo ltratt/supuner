@@ -1,0 +1,32 @@
+============================================================================
+  bin/                                                      Laurence Tratt
+============================================================================
+
+This directory contains various utilities I've created over the years, each
+too small to be worthy of the overhead of creating a stand-alone package
+for, but each potentially useful to other people. My aim here is to package
+them together in a simple fashion. There will be no formal releases of any
+of these, but fetching the latest version of this repository's master branch
+will update things appropriately: any experimental development will be done
+under other branches.
+
+Most of these utilities are for Unix systems, some for a specific Unix
+(generally OpenBSD), though I aim to make as many of them portable as is
+practical. Portability fixes are always greatly appreciated.
+
+In that tradition, many of the utilities need little more than a Unix shell;
+some require other languages (e.g. Python); and some may require other
+external tools. Checking the first few lines of each utility or should make
+it obvious what its requirements are. Each utility is otherwise
+self-contained: if you wish to use one or more of them, simply copy them to
+somewhere in your path (I use ~/bin/, with my $PATH set appropriately).
+
+Further, more detailed, documentation for some of the utilities can be found
+at my website:
+
+  http://tratt.net/laurie/
+
+You can also find my contact details there for bug reports, code updates
+etc.
+
+Each script or utility is under an MIT / BSD licence.
