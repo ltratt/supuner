@@ -24,15 +24,16 @@
 # This script takes a command and executes it, manipulating its stderr and
 # stdout. Its name is short for SUPress UNless ERror (supuner).
 #
-# If -q is specified, the combined stderr / stdout is supressed unless the
-# command returns a non-zero exit code; the combined stderr / stdout stream
-# is then sent to stdout and this script exits with the return code of the
-# specified command.
+# By default sunuper suppresses all output to stderr and stdout unless an
+# error occurs in which case a combined copy of stderr and stdout is sent
+# to stderr. With the -e ('echo') switch, the command's normal stdout and
+# stderr are sent to the console. This allows one to both interactively
+# view and log a commands output simultaneously
 #
-# If -q is not specified, the commands output is sent to stderr / stdout as
-# normal, but is also captured in a file.
+# If -o is specified, the captured stderr / stdout is combined and sent to
+# that file.
 #
-# If -o is specified, the captured stderr / stdout is sent to that file.
+# The exit code of supuner is the exit code of <command>.
 #
 # This is useful for "chatty" scripts used in cron jobs which output
 # irrelevant information on stderr, which clogs up cron's output. This
@@ -41,14 +42,14 @@
 
 prog_name=`echo $0 | tr "/" "\n" | tail -1`
 
-q=0   # Set to 1 for 'quiet' execution
+ec=0  # Set to 1 for 'echo to stdout'
 op=0  # output path
 dop=1 # Delete output path when script finishes
 ae=0  # Set to != 0 to indicate an error with the programs arguments
-while getopts ":ho:q" f
+while getopts ":ho:e" f
 do
     case "$f" in
-        q)   q=1;;
+        e)   ec=1;;
         o)   op="$OPTARG"; dop=0;;
         [?]) ae=1; break;;
     esac
@@ -71,11 +72,11 @@ if [ $ae -eq 0 ]; then
 fi
 
 if [ $ae -ne 0 ]; then
-    echo "Usage: $prog_name [-q] [-o <filename>] <command>" >&2
+    echo "Usage: $prog_name [-e] [-o <filename>] <command>" >&2
     exit 1
 fi
 
-if [ $q -eq 0 ]; then
+if [ $ec -eq 1 ]; then
     # We have to make sure the commands output is sent to the real
     # stderr / stdout as well as captured. This code is inspired by
     # http://www.travishartwell.net/blog/2006/08/19_2220
@@ -109,13 +110,14 @@ else
         trap 'rm -f $op' 1 2 3 13 15
     fi
     
+    exec 3>&1 4>&2
     exec > $op 2>&1
     $prog ${1+"$@"}
     ec=$?
     exec 1>&3 3>&- 2>&4 4>&-
 
     if [ $ec -ne 0 ]; then
-        cat $op
+		cat $op >&2
     fi
 fi
 
