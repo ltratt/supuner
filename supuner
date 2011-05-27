@@ -109,8 +109,10 @@ else
         trap 'rm -f $op' 1 2 3 13 15
     fi
     
-    $prog ${1+"$@"} > $op 2>&1
+    exec > $op 2>&1
+    $prog ${1+"$@"}
     ec=$?
+    exec 1>&3 3>&- 2>&4 4>&-
 
     if [ $ec -ne 0 ]; then
         cat $op
