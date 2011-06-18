@@ -1,0 +1,110 @@
+.\" Copyright (C)2011 Laurence Tratt <http://tratt.net/laurie/>
+.\"
+.\" Copyright (c)2011 Laurence Tratt <http://tratt.net/laurie>
+.\"
+.\" Permission is hereby granted, free of charge, to any person obtaining a
+.\" copy of this software and associated documentation files (the
+.\" "Software"), to deal in the Software without restriction, including
+.\" without limitation the rights to use, copy, modify, merge, publish,
+.\" distribute, sublicense, and/or sell copies of the Software, and to
+.\" permit persons to whom the Software is furnished to do so, subject to the
+.\" following conditions:
+.\"
+.\" The above copyright notice and this permission notice shall be included
+.\" in all copies or substantial portions of the Software.
+.\"
+.\" THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+.\" OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+.\" MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+.\" NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+.\" DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+.\" OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+.\" USE OR OTHER DEALINGS IN THE SOFTWARE.
+.Dd $Mdocdate: June 6 2011 $
+.Dt SUPUNER 1
+.Os
+.Sh NAME
+.Nm supuner
+.Nd SUPress command stdout / stderr UNless ERror
+.Sh SYNOPSIS
+.Nm supuner
+.Op Fl e
+.Op Fl o Ar file
+.Aq command
+.Op Ar options ...
+.Sh DESCRIPTION
+.Nm
+executes a command and manipulates its stderr and stdout, allowing the user
+control over when they are displayed and / or outputted. It has two chief
+uses:
+.Bl -enum
+.It
+Suppressing all output from a command unless there is an error, in which
+case the combined output of stdout and stderr is sent to stderr. This is
+useful for 'chatty' scripts in
+.Xr cron 8
+cron jobs: if they run successfully, receiving an e-mail from them is distracting.
+.It
+Allowing long-running processes (e.g. database processing jobs) to run
+inside a
+.Xr screen 1
+/
+.Xr tmux 1 ,
+sending output to both the console and a log-file. If an error occurs, the
+log file can then be e-mailed to an appropriate person.
+.El
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.It Ic -e
+Echo stdout and stderr as normal as well as sending to a file (if
+.Ic -o
+is specified). If not specified, no output is ever sent to stdout; if
+.Ar command
+terminates unsuccessfully, its combined stdout and stderr output is
+sent to stderr.
+.It Ic -o Ar file
+Send stdout and stderr to
+.Ar file .
+.El
+.Pp
+.Nm
+exits with the exit code of command.
+.Sh EXAMPLES
+Here are examples of the basic styles of use of
+.Nm :
+.Pp
+.Dl $ supuner ls /bin/sh
+.Dl $ supuner ls /bin/sh /doesntexist
+.Dl ls: /doesntexist: No such file or directory
+.Dl /bin/sh
+.Dl $ supuner -e ls /bin/sh
+.Dl /bin/sh
+.Dl $ echo $?
+.Dl 0
+.Dl $ supuner -e ls /bin/sh /doesntexist
+.Dl ls: /doesntexist: No such file or directory
+.Dl /bin/sh
+.Dl $ echo $?
+.Dl 1
+.Dl $ supuner -o /tmp/o -e ls /bin/sh /doesntexist
+.Dl ls: /doesntexist: No such file or directory
+.Dl /bin/sh
+.Dl $ cat /tmp/o
+.Dl ls: /doesntexist: No such file or directory
+.Dl /bin/sh
+.Pp
+Using the fact that
+.Nm
+exits with the exit code of
+.Ar command ,
+we can use the
+.Ql ||
+operator to perform actions on the combined stdout / stderr output, for example:
+.Pp
+.Dl supuner -o /tmp/o ls /bin/sh /doesntexist >2 /dev/null || mail -s 'Error from ls' somebody@something.com < /tmp/o
+.Sh AUTHORS
+.An -nosplit
+.Nm
+was written by
+.An Laurence Tratt Aq http://tratt.net/laurie/ .
