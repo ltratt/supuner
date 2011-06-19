@@ -1,5 +1,3 @@
-.\" Copyright (C)2011 Laurence Tratt <http://tratt.net/laurie/>
-.\"
 .\" Copyright (c)2011 Laurence Tratt <http://tratt.net/laurie>
 .\"
 .\" Permission is hereby granted, free of charge, to any person obtaining a
@@ -20,7 +18,7 @@
 .\" DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 .\" OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 .\" USE OR OTHER DEALINGS IN THE SOFTWARE.
-.Dd $Mdocdate: June 6 2011 $
+.Dd $Mdocdate: June 19 2011 $
 .Dt SUPUNER 1
 .Os
 .Sh NAME
@@ -30,13 +28,13 @@
 .Nm supuner
 .Op Fl e
 .Op Fl o Ar file
-.Aq command
+.Ar command
 .Op Ar options ...
 .Sh DESCRIPTION
 .Nm
 executes a command and manipulates its stderr and stdout, allowing the user
 control over when they are displayed and / or outputted. It has two chief
-uses:
+uses which are best explained by example:
 .Bl -enum
 .It
 Suppressing all output from a command unless there is an error, in which
@@ -57,7 +55,7 @@ log file can then be e-mailed to an appropriate person.
 The options are as follows:
 .Bl -tag -width Ds
 .It Ic -e
-Echo stdout and stderr as normal as well as sending to a file (if
+Echo stdout and stderr as normal (as well as sending to a file if
 .Ic -o
 is specified). If not specified, no output is ever sent to stdout; if
 .Ar command
@@ -66,10 +64,14 @@ sent to stderr.
 .It Ic -o Ar file
 Send stdout and stderr to
 .Ar file .
+(as well as sending to stdout and stderr as normal if
+.Ic -e
+is specified)
 .El
 .Pp
 .Nm
-exits with the exit code of command.
+exits with the exit code of
+.Ar command .
 .Sh EXAMPLES
 Here are examples of the basic styles of use of
 .Nm :
@@ -98,7 +100,7 @@ Using the fact that
 .Nm
 exits with the exit code of
 .Ar command ,
-we can use the
+one can use the
 .Ql ||
 operator to perform actions on the combined stdout / stderr output, for example:
 .Pp
