@@ -20,7 +20,10 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-
+# http://tratt.net/laurie/src/supuner
+#
+# supuner [-e] [-o <filename>] <command>
+#
 # This script takes a command and executes it, manipulating its stderr and
 # stdout. Its name is short for SUPress UNless ERror (supuner).
 #
