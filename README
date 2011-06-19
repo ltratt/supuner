@@ -2,13 +2,12 @@
   bin/                                                      Laurence Tratt
 ============================================================================
 
-This directory contains various utilities I've created over the years, each
+This directory contains various utilities I've created over the years, most
 too small to be worthy of the overhead of creating a stand-alone package
-for, but each potentially useful to other people. My aim here is to package
-them together in a simple fashion. There will be no formal releases of any
-of these, but fetching the latest version of this repository's master branch
-will update things appropriately: any experimental development will be done
-under other branches.
+for, but still potentially useful to other people. My aim here is to package
+them together in a simple fashion so that people can cherry-pick those
+they're most interested in. Some of the utilities may also have separate
+stand-alone releases, but that is not guaranteed.
 
 Most of these utilities are for Unix systems, some for a specific Unix
 (generally OpenBSD), though I aim to make as many of them portable as is
