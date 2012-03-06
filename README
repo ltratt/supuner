@@ -15,10 +15,10 @@ practical. Portability fixes are always greatly appreciated.
 
 In that tradition, many of the utilities need little more than a Unix shell;
 some require other languages (e.g. Python); and some may require other
-external tools. Checking the first few lines of each utility or should make
-it obvious what its requirements are. Each utility is otherwise
-self-contained: if you wish to use one or more of them, simply copy them to
-somewhere in your path (I use ~/bin/, with my $PATH set appropriately).
+external tools. Checking the first few lines of each utility should make it
+obvious what its requirements are. Each utility is otherwise self-contained:
+if you wish to use one or more of them, simply copy them to somewhere in your
+path (I use ~/bin/, with my $PATH set appropriately).
 
 Further, more detailed, documentation for some of the utilities can be found
 at my website:
