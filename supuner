@@ -43,7 +43,7 @@
 # script allows one to only see the errors such scripts cause.
 
 
-prog_name=`echo $0 | tr "/" "\n" | tail -1`
+prog_name=`basename $0`
 
 ec=0  # Set to 1 for 'echo to stdout'
 op=0  # output path
