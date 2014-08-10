@@ -79,19 +79,19 @@ if [ $ae -ne 0 ]; then
     exit 1
 fi
 
+tmpdir=`mktemp -d`
+trap 'rm -fr $tmpdir' 1 2 3 13 15
+if [ $dop -eq 1 ]; then
+    # If the user didn't specify an op file, we use a temporary one.
+    op=$tmpdir/op
+fi
+
 if [ $ec -eq 1 ]; then
     # We have to make sure the commands output is sent to the real
     # stderr / stdout as well as captured. This code is inspired by
     # http://www.travishartwell.net/blog/2006/08/19_2220
-    p=`mktemp -u` # pipe
+    p=$tmpdir/p
     mkfifo $p
-
-    if [ $dop -eq 1 ]; then
-        op=`mktemp`
-        trap 'rm -f $op $p' 1 2 3 13 15
-    else
-        trap 'rm -f $p' 1 2 3 13 15
-    fi
 
     exec 3>&1 4>&2
     tee $op < $p >&3 &
@@ -108,11 +108,6 @@ if [ $ec -eq 1 ]; then
 else
     # Simple: execute the command and only spit something to stdout if a
     # non-zero exit code is returned.
-    if [ $dop -eq 1 ]; then
-        op=`mktemp`
-        trap 'rm -f $op' 1 2 3 13 15
-    fi
-    
     exec 3>&1 4>&2
     exec > $op 2>&1
     $prog ${1+"$@"}
@@ -123,8 +118,5 @@ else
 		cat $op >&2
     fi
 fi
-
-if [ $dop -eq 1 ]; then
-    rm -f $op
-fi
+rm -fr $tmpdir
 exit $ec
