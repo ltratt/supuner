@@ -99,7 +99,7 @@ if [ $ec -eq 1 ]; then
     exec > $p 2>&1
 
     $prog ${1+"$@"}
-    ec=$?
+    rc=$?
 
     exec 1>&3 3>&- 2>&4 4>&-
     wait $tpid
@@ -111,7 +111,7 @@ else
     exec 3>&1 4>&2
     exec > $op 2>&1
     $prog ${1+"$@"}
-    ec=$?
+    rc=$?
     exec 1>&3 3>&- 2>&4 4>&-
 
     if [ $ec -ne 0 ]; then
@@ -119,4 +119,4 @@ else
     fi
 fi
 rm -fr $tmpdir
-exit $ec
+exit $rc
