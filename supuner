@@ -114,7 +114,7 @@ else
     rc=$?
     exec 1>&3 3>&- 2>&4 4>&-
 
-    if [ $ec -ne 0 ]; then
+    if [ $rc -ne 0 ]; then
 		cat $op >&2
     fi
 fi
