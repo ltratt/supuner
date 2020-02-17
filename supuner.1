@@ -18,7 +18,7 @@
 .\" DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 .\" OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 .\" USE OR OTHER DEALINGS IN THE SOFTWARE.
-.Dd $Mdocdate: June 19 2011 $
+.Dd $Mdocdate: February 17 2020 $
 .Dt SUPUNER 1
 .Os
 .Sh NAME
@@ -54,12 +54,12 @@ log file can then be e-mailed to an appropriate person.
 .Pp
 The options are as follows:
 .Bl -tag -width Ds
-.It Ic -e
+.It Fl e
 If
 .Fl o
 is specified, then as well as sending output to a file, echo stdout
 and stderr combined to stdout.
-.It Ic -o Ar file
+.It Fl o Ar file
 Send stdout and stderr to
 .Ar file .
 .El
@@ -103,4 +103,5 @@ operator to perform actions on the combined stdout / stderr output, for example:
 .An -nosplit
 .Nm
 was written by
-.An Laurence Tratt Aq http://tratt.net/laurie/ .
+.An Laurence Tratt
+.Lk https://tratt.net/laurie/ .
