@@ -1,16 +1,15 @@
-prefix = /usr/local
-exec_prefix = ${prefix}
-bindir = ${exec_prefix}/bin
-
+PREFIX ?= /usr/local
+MAN_PREFIX ?= ${PREFIX}/man
 
 all:
 # Intentionally empty
 
 
 install:
-	install -d ${DESTDIR}${bindir}
-	install -c -m 555 supuner ${DESTDIR}${bindir}
-	install -c -m 444 supuner.1 ${DESTDIR}${prefix}/man/man1
+	install -d ${PREFIX}/bin
+	install -c -m 555 supuner ${PREFIX}/bin
+	install -d ${MAN_PREFIX}/man1
+	install -c -m 444 supuner.1 ${MAN_PREFIX}/man1/supuner.1
 
 
 clean:
