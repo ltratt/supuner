@@ -74,6 +74,11 @@ if [ $ae -eq 0 ]; then
     fi
 fi
 
+if [ $ec -eq 1 -a $op = 0 ]; then
+    echo "-e only allowed if -o is specified" >&2
+    exit 1
+fi
+
 if [ $ae -ne 0 ]; then
     echo "Usage: $prog_name [-e] [-o <filename>] <command>" >&2
     exit 1

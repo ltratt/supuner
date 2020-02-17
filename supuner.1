@@ -55,18 +55,13 @@ log file can then be e-mailed to an appropriate person.
 The options are as follows:
 .Bl -tag -width Ds
 .It Ic -e
-Echo stdout and stderr as normal (as well as sending to a file if
-.Ic -o
-is specified). If not specified, no output is ever sent to stdout; if
-.Ar command
-terminates unsuccessfully, its combined stdout and stderr output is
-sent to stderr.
+If
+.Fl o
+is specified, then as well as sending output to a file, echo stdout
+and stderr combined to stdout.
 .It Ic -o Ar file
 Send stdout and stderr to
-.Ar file
-(as well as sending to stdout and stderr as normal if
-.Ic -e
-is specified)
+.Ar file .
 .El
 .Pp
 .Nm
@@ -80,18 +75,17 @@ Here are examples of the basic styles of use of
 .Dl $ supuner ls /bin/sh /doesntexist
 .Dl ls: /doesntexist: No such file or directory
 .Dl /bin/sh
-.Dl $ supuner -e ls /bin/sh
-.Dl /bin/sh
+.Dl $ supuner -o /tmp/o ls /bin/sh /doesntexist
 .Dl $ echo $?
-.Dl 0
-.Dl $ supuner -e ls /bin/sh /doesntexist
+.Dl 1
+.Dl $ cat /tmp/o
+.Dl ls: /doesntexist: No such file or directory
+.Dl /bin/sh
+.Dl $ supuner -e -o /tmp/o ls /bin/sh /doesntexist
 .Dl ls: /doesntexist: No such file or directory
 .Dl /bin/sh
 .Dl $ echo $?
 .Dl 1
-.Dl $ supuner -o /tmp/o -e ls /bin/sh /doesntexist
-.Dl ls: /doesntexist: No such file or directory
-.Dl /bin/sh
 .Dl $ cat /tmp/o
 .Dl ls: /doesntexist: No such file or directory
 .Dl /bin/sh
