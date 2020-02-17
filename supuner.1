@@ -32,9 +32,9 @@
 .Op Ar options ...
 .Sh DESCRIPTION
 .Nm
-executes a command and manipulates its stderr and stdout. By default, it
-captures both stderr and stdout and only outputs their combined value to
-stdout if
+executes a command and manipulates its stderr and stdout.
+By default, it captures both stderr and stdout and only outputs their combined
+value to stdout if
 .Ar command
 fails.
 .Pp
@@ -83,8 +83,10 @@ exits with the exit code of
 one can use the
 .Ql ||
 operator to perform actions on the combined stdout / stderr output, for example:
-.Pp
-.Dl supuner -o /tmp/o ls /bin/sh /doesntexist >2 /dev/null || mail -s 'Error from ls' somebody@something.com < /tmp/o
+.Bd -literal -offset 4n
+supuner -o /tmp/o ls /bin/sh /doesntexist >2 /dev/null \\
+  || mail -s 'Error from ls' somebody@something.com < /tmp/o
+.Ed
 .Sh AUTHORS
 .An -nosplit
 .Nm
