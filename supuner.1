@@ -23,7 +23,7 @@
 .Os
 .Sh NAME
 .Nm supuner
-.Nd SUPress command stdout / stderr UNless ERror
+.Nd SUPress stdout / stderr UNless ERror
 .Sh SYNOPSIS
 .Nm supuner
 .Op Fl e
@@ -32,25 +32,11 @@
 .Op Ar options ...
 .Sh DESCRIPTION
 .Nm
-executes a command and manipulates its stderr and stdout, allowing the user
-control over when they are displayed and / or outputted. It has two chief
-uses which are best explained by example:
-.Bl -enum
-.It
-Suppressing all output from a command unless there is an error, in which
-case the combined output of stdout and stderr is sent to stderr. This is
-useful for 'chatty' scripts in
-.Xr cron 8
-cron jobs: if they run successfully, receiving an e-mail from them is distracting.
-.It
-Allowing long-running processes (e.g. database processing jobs) to run
-inside a
-.Xr screen 1
-/
-.Xr tmux 1 ,
-sending output to both the console and a log-file. If an error occurs, the
-log file can then be e-mailed to an appropriate person.
-.El
+executes a command and manipulates its stderr and stdout. By default, it
+captures both stderr and stdout and only outputs their combined value to
+stdout if
+.Ar command
+fails.
 .Pp
 The options are as follows:
 .Bl -tag -width Ds
