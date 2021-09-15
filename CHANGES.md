@@ -2,8 +2,8 @@
 
 * Document that `-e` sends *combined* stderr/stdout output to stdout.
 
-* Error if `-e` is specified with `-o`, since `-e` without `-o` has no use (and
-  mildly surprising semantics).
+* Error if `-e` is specified without `-o`, since the previous behaviour of `-e`
+  without `-o` had no use (and mildly surprising semantics).
 
 * Use the OS's `basename` program rather than a hand-rolled alternative.
 
