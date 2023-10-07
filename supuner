@@ -84,7 +84,7 @@ if [ "${ae}" -ne 0 ]; then
 fi
 
 tmpdir=$(mktemp -d)
-trap 'rm -fr ${tmpdir}' 1 2 3 13 15
+trap 'rm -fr ${tmpdir}' HUP INT QUIT PIPE TERM
 if [ "${dop}" -eq 1 ]; then
     # If the user didn't specify an op file, we use a temporary one.
     op=${tmpdir}/op
