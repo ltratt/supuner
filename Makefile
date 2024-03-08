@@ -1,15 +1,20 @@
 PREFIX ?= /usr/local
-MAN_PREFIX ?= ${PREFIX}/man
+BINDIR ?= ${PREFIX}/bin
+
+MANDIR.${PREFIX} = ${PREFIX}/share/man
+MANDIR./usr/local = /usr/local/man
+MANDIR. = /usr/share/man
+MANDIR ?= ${MANDIR.${PREFIX}}
 
 all:
 # Intentionally empty
 
 
 install:
-	install -d ${PREFIX}/bin
-	install -c -m 555 supuner ${PREFIX}/bin
-	install -d ${MAN_PREFIX}/man1
-	install -c -m 444 supuner.1 ${MAN_PREFIX}/man1/supuner.1
+	install -d ${DESTDIR}${BINDIR}
+	install -c -m 555 supuner ${DESTDIR}${BINDIR}
+	install -d ${DESTDIR}${MANDIR}/man1
+	install -c -m 444 supuner.1 ${DESTDIR}${MANDIR}/man1/supuner.1
 
 
 clean:
