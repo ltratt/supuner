@@ -23,7 +23,6 @@ clean:
 
 distrib:
 	@read v?'supuner version: '; mkdir supuner-$$v; \
-      cp supuner supuner.1 supuner-$$v; \
-	  cp Makefile.supuner supuner-$$v/Makefile; \
+	  cp supuner supuner.1 Makefile CHANGES.md README.md test.py supuner-$$v; \
 	  tar cfz supuner-$$v.tar.gz supuner-$$v; \
 	  rm -rf supuner-$$v
